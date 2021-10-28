@@ -1,0 +1,27 @@
+@model User
+@{ ViewBag.Title = "Пользователь";
+    Layout = "_Layout"; }
+<div class="table_section">
+    <img src="@Model.Avatar" class="img-thumbnail">
+    <h1>@Model.Login</h1>
+    <h3>Фотографий:@Model.Photoscount</h3>
+    <h3>Подписчиков:@Model.Subscriberscount</h3>
+    <h3>Подписок:@Model.Subscriptionscount</h3>
+    <p>@Model.UserDescription</p>
+    <h3>
+        @using (Html.BeginForm("Subscribe", "Instagram", new { id = Model.Id }))
+        {
+<button type="submit">Подписаться</button>}
+    </h3>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var photo in Model.Photos)
+        {
+<div class="col">
+    <div class="card">
+        <a asp-action="MainPhoto" asp-route-id="@photo.Id"><img src="@photo.Picture" class="card-img-top" alt="..."></a>
+        <div class="card-body">
+        </div>
+    </div>
+</div>}
+    </div>
+</div>

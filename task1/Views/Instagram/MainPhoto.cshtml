@@ -1,0 +1,32 @@
+@model Comment
+@{ ViewBag.Title = "Фото";
+                Layout = "_Layout"; }
+<div class="col">
+    <div class="card">
+        <img src="@ViewBag.Picture" class="card-img-top" alt="...">
+        <p>@ViewBag.PictureDescription</p>
+ <p>"@ViewBag.CommentsCount" Комментариев</p>
+        <p>"@ViewBag.Likescount" Отметок Нравится</p>
+        @foreach (var comment in @ViewBag.Comments)
+        {
+    <p>@comment.User.Login:@comment.CommentText</p>}
+            @using (Html.BeginForm("Comment", "Photos", new { id = @ViewBag.PhotoId }))
+            {
+                  <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Комментировать:</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" asp-for="@Model.CommentText">
+            </div>
+    <div class="form-row">
+        <label for="">
+            <input disabled type="text" value="@User.Identity.Name" hidden>
+        </label>
+        <input asp-for="@Model.PhotoId" type="hidden" value="@ViewBag.PhotoId" hidden>
+    </div>
+            <button type="submit">Опубликовать</button>}
+         @using (Html.BeginForm("Like", "Instagram", new { id = @ViewBag.PhotoId }))
+                {
+                    <button type="submit">Like</button>}
+            <div class="card-body">
+            </div>
+    </div>
+</div>

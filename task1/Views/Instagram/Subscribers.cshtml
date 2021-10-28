@@ -1,0 +1,10 @@
+@model List<User>
+@{ ViewBag.Title = "Подписчики";
+                Layout = "_Layout"; }
+<div>
+    @foreach (var user in Model)
+    {
+<a asp-action="MainUser" asp-controller="Instagram" asp-route-id="@user.Id">
+    <p>@user.Login</p>
+</a>            }
+</div>
