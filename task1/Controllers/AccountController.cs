@@ -47,14 +47,17 @@ namespace task1.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, "user");
                     await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
                     service.SendEmailDefault(user.Id);
+                    return RedirectToAction("Index", "Home");
+                   
                 }
                 foreach (var error in result.Errors)
                     ModelState.AddModelError(string.Empty, error.Description);
             }
             return View(model);
         }
+
+    
 
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
