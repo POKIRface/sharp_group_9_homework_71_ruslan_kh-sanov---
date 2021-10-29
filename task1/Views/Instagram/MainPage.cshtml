@@ -11,7 +11,8 @@
     <a asp-action="Subscriptions" asp-controller="Instagram"><h3>Подписок:@Model.Subscriptionscount</h3></a>
     <p>@Model.UserDescription</p>
     <a asp-action="Add" asp-controller="Photos" asp-route-userid="@ViewBag.UserId">Загрузить фото</a><br />
-    <a asp-area="" asp-controller="Instagram" asp-action="SendEmailInfo">Отправить информацию об аккаунте на Email</a>
+    <a asp-area="" asp-controller="Instagram" asp-action="SendEmailInfo">Отправить информацию об аккаунте на Email</a><br />
+    <a asp-action="EditUser">Редактировать</a>
     <div class="row row-cols-1 row-cols-md-2 g-4">
         @foreach (var photo in Model.Photos)
         {

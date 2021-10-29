@@ -1,0 +1,32 @@
+@model task1.Models.User
+@{ ViewBag.Title = "Редактировать пользователя";
+    Layout = "_Layout"; }
+<h2>Заполните форму для редактирования пользователя</h2>
+<div class="row">
+    <div class="phone_add_form col-md-6">
+        <form asp-action="EditUser" method="post">
+            <div class="form_row">
+                <label for="">
+                    Наименование
+                    <input asp-for="@Model.Avatar" type="text">
+                    <span asp-validation-for="@Model.Avatar"></span>
+                </label>
+            </div>
+            <div class="form_row">
+                <label for="">
+                    Страна производства
+                    <input asp-for="@Model.PhoneNumber" type="text">
+                    <span asp-validation-for="@Model.PhoneNumber"></span>
+                </label>
+            </div>
+            <div class="form_row">
+                <label for="">
+                    Описание
+                    <input asp-for="@Model.UserDescription" type="text">
+                    <span asp-validation-for="@Model.UserDescription"></span>
+                </label>
+            </div>
+            <button type="submit">Редактировать</button>
+        </form>
+    </div>
+</div>

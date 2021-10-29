@@ -77,6 +77,34 @@ namespace task1
                 logger.LogError(e.GetBaseException().Message);
             }
         }
+        public void SendEmailEdit(string userid)
+        {
+            try
+            {
+                User user = _db.ContextUsers.FirstOrDefault(u => u.Id == userid);
+                System.Net.Mail.MailMessage message = new System.Net.Mail.MailMessage();
+                message.IsBodyHtml = true; //тело сообщения в формате HTML
+                message.From = new MailAddress("admin@mycompany.com", "Моя компания"); //отправитель сообщения
+                message.To.Add(user.Email); //адресат сообщения
+                message.Subject = $"{user.Login} Смена личных данных"; //тема сообщения
+                message.Body = $"<div style=\"color: red;\">Ваши личные данные были изменены!!!</div>"; //тело сообщения
+
+
+                using (System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.gmail.com")) //используем сервера Google
+                {
+                    client.Credentials = new NetworkCredential("messagemvcgo@gmail.com", "123_Aaaa"); //логин-пароль от аккаунта
+                    client.Port = 587; //порт 587 либо 465
+                    client.EnableSsl = true; //SSL обязательно
+
+                    client.Send(message);
+                    logger.LogInformation("Сообщение отправлено успешно!");
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.GetBaseException().Message);
+            }
+        }
 
         //MailKit.Net.Smtp.SmtpClient
         public void SendEmailCustom()

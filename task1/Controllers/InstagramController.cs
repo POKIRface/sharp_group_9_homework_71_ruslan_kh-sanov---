@@ -201,6 +201,24 @@ namespace task1.Controllers
             return RedirectToAction("MainPage");
         }
 
+        public IActionResult EditUser()
+        {
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            User user = _db.ContextUsers.FirstOrDefault(u => u.Id == userid);
+            return View(user);
+
+        }
+
+        [HttpPost]
+        public IActionResult EditUser(User user)
+        {
+
+            _db.ContextUsers.Update(user);
+            //_db.SaveChanges();
+            service.SendEmailEdit(user.Id);
+            return RedirectToAction("MainPage");
+        }
+
 
     }
 
