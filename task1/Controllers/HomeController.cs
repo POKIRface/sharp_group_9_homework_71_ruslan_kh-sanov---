@@ -11,16 +11,24 @@ namespace task1.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly Service service;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,Service service)
         {
             _logger = logger;
+            this.service = service;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult SendEmailDefault()
+        {
+            service.SendEmailDefault();
+            return RedirectToAction("index");
         }
 
         public IActionResult Privacy()
