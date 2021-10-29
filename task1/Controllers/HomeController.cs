@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,7 +28,8 @@ namespace task1.Controllers
 
         public IActionResult SendEmailDefault()
         {
-            service.SendEmailDefault();
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            service.SendEmailDefault(userid);
             return RedirectToAction("index");
         }
 

@@ -13,10 +13,11 @@ namespace task1.Controllers
     public class InstagramController : Controller
     {
         private UsersContext _db;
-
-        public InstagramController(UsersContext db)
+        private readonly Service service;
+        public InstagramController(UsersContext db, Service service)
         {
             _db = db;
+            this.service = service;
         }
 
         public IActionResult MainPage()
@@ -191,6 +192,13 @@ namespace task1.Controllers
                 _db.SaveChanges();
                 return Redirect("~/Instagram/MainPhoto/" +id);
             }
+        }
+
+        public IActionResult SendEmailInfo()
+        {
+            string userid = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            service.SendEmailInfo(userid);
+            return RedirectToAction("MainPage");
         }
 
 

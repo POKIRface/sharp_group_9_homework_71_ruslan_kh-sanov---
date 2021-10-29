@@ -13,6 +13,9 @@ namespace task1.Models
         public int Photoscount { get; set; }
         public string Login { get; set; }
         public int Subscriptionscount { get; set; }
+
+ 
+
         public List<string> Subscriptions2 { get; set; }
         public List<string> Subscribers2 { get; set; }
         public List<Photo> Photos { get; set; }

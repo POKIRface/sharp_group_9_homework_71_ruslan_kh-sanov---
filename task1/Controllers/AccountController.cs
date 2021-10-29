@@ -13,11 +13,12 @@ namespace task1.Controllers
         public UsersContext _db;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly Service service;
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, Service service)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            this.service = service;
         }
         [HttpGet]
         public IActionResult Register()
@@ -47,6 +48,7 @@ namespace task1.Controllers
                     await _userManager.AddToRoleAsync(user, "user");
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
+                    service.SendEmailDefault(user.Id);
                 }
                 foreach (var error in result.Errors)
                     ModelState.AddModelError(string.Empty, error.Description);
